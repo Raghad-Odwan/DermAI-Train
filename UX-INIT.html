@@ -1,0 +1,771 @@
+import React, { useState } from 'react';
+import { Camera, Upload, MapPin, FileText, User, BarChart3, HelpCircle, Menu, X, AlertCircle, CheckCircle, Download, Share2, Calendar, ChevronRight, Search, Home } from 'lucide-react';
+
+const DermAIDesign = () => {
+  const [currentPage, setCurrentPage] = useState('landing');
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Navigation Component
+  const Navigation = () => (
+    <nav className="bg-white shadow-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <div className="flex items-center space-x-2">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-xl">D</span>
+            </div>
+            <span className="text-2xl font-bold text-gray-800">DermAI</span>
+          </div>
+          
+          <div className="hidden md:flex space-x-6">
+            <button onClick={() => setCurrentPage('landing')} className="text-gray-600 hover:text-blue-600 transition">Home</button>
+            <button onClick={() => setCurrentPage('dashboard')} className="text-gray-600 hover:text-blue-600 transition">Dashboard</button>
+            <button onClick={() => setCurrentPage('upload')} className="text-gray-600 hover:text-blue-600 transition">New Diagnosis</button>
+            <button className="text-gray-600 hover:text-blue-600 transition">About</button>
+            <button className="text-gray-600 hover:text-blue-600 transition">Contact</button>
+          </div>
+
+          <div className="hidden md:flex items-center space-x-4">
+            <button className="text-gray-600 hover:text-blue-600">Login</button>
+            <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Sign Up</button>
+          </div>
+
+          <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
+
+      {menuOpen && (
+        <div className="md:hidden bg-white border-t">
+          <div className="px-4 py-3 space-y-3">
+            <button onClick={() => { setCurrentPage('landing'); setMenuOpen(false); }} className="block w-full text-left text-gray-600 hover:text-blue-600">Home</button>
+            <button onClick={() => { setCurrentPage('dashboard'); setMenuOpen(false); }} className="block w-full text-left text-gray-600 hover:text-blue-600">Dashboard</button>
+            <button onClick={() => { setCurrentPage('upload'); setMenuOpen(false); }} className="block w-full text-left text-gray-600 hover:text-blue-600">New Diagnosis</button>
+            <button className="block w-full text-left text-gray-600 hover:text-blue-600">About</button>
+            <button className="block w-full text-left text-gray-600 hover:text-blue-600">Contact</button>
+            <hr />
+            <button className="block w-full text-left text-gray-600 hover:text-blue-600">Login</button>
+            <button className="block w-full bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 text-center">Sign Up</button>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+
+  // Landing Page
+  const LandingPage = () => (
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      {/* Hero Section */}
+      <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+            Early Detection <span className="text-blue-600">Saves Lives</span>
+          </h1>
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            AI-powered skin cancer detection using advanced deep learning. Get instant analysis and expert recommendations.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button 
+              onClick={() => setCurrentPage('upload')}
+              className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition shadow-lg flex items-center justify-center space-x-2"
+            >
+              <Camera size={24} />
+              <span>Start Diagnosis</span>
+            </button>
+            <button className="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-50 transition border-2 border-blue-600">
+              Learn More
+            </button>
+          </div>
+        </div>
+
+        {/* Stats Banner */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white p-6 rounded-xl shadow-md text-center">
+            <div className="text-3xl font-bold text-blue-600">33,126+</div>
+            <div className="text-gray-600 mt-2">Training Images</div>
+          </div>
+          <div className="bg-white p-6 rounded-xl shadow-md text-center">
+            <div className="text-3xl font-bold text-blue-600">98.5%</div>
+            <div className="text-gray-600 mt-2">Accuracy Rate</div>
+          </div>
+          <div className="bg-white p-6 rounded-xl shadow-md text-center">
+            <div className="text-3xl font-bold text-blue-600">GDPR</div>
+            <div className="text-gray-600 mt-2">Compliant</div>
+          </div>
+        </div>
+
+        {/* Features Section */}
+        <div className="mt-20">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Key Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                <BarChart3 className="text-blue-600" size={32} />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Instant AI Analysis</h3>
+              <p className="text-gray-600">Advanced CNN models provide accurate classification in under 5 seconds</p>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
+              <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mb-4">
+                <FileText className="text-teal-600" size={32} />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Explainable Results</h3>
+              <p className="text-gray-600">Grad-CAM visualizations show exactly what influenced the AI's decision</p>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
+              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                <MapPin className="text-orange-600" size={32} />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Find Nearby Clinics</h3>
+              <p className="text-gray-600">Locate dermatologists near you and book appointments instantly</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Dashboard Page
+  const DashboardPage = () => (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        {/* Welcome Section */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Welcome back, John!</h1>
+          <p className="text-gray-600 mt-2">Here's your health dashboard</p>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <button 
+            onClick={() => setCurrentPage('upload')}
+            className="bg-gradient-to-br from-blue-600 to-blue-700 text-white p-6 rounded-xl shadow-lg hover:shadow-xl transition group"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <Upload size={32} />
+              <ChevronRight className="group-hover:translate-x-1 transition" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Upload New Image</h3>
+            <p className="text-blue-100">Start a new diagnosis</p>
+          </button>
+
+          <button 
+            onClick={() => setCurrentPage('reports')}
+            className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition group border-2 border-gray-200"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <FileText className="text-blue-600" size={32} />
+              <ChevronRight className="text-gray-400 group-hover:translate-x-1 transition" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">View Past Results</h3>
+            <p className="text-gray-600">Access your history</p>
+          </button>
+
+          <button 
+            onClick={() => setCurrentPage('clinics')}
+            className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition group border-2 border-gray-200"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <Calendar className="text-blue-600" size={32} />
+              <ChevronRight className="text-gray-400 group-hover:translate-x-1 transition" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Book Appointment</h3>
+            <p className="text-gray-600">Find nearby clinics</p>
+          </button>
+        </div>
+
+        {/* Recent Activity */}
+        <div className="bg-white rounded-xl shadow-md p-6">
+          <h2 className="text-2xl font-bold mb-6">Recent Activity</h2>
+          <div className="space-y-4">
+            {[
+              { date: 'Oct 25, 2025', result: 'Benign', confidence: '95%', status: 'success' },
+              { date: 'Oct 15, 2025', result: 'Benign', confidence: '88%', status: 'success' },
+              { date: 'Sep 30, 2025', result: 'Malignant', confidence: '92%', status: 'warning' }
+            ].map((item, i) => (
+              <div key={i} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition">
+                <div className="flex items-center space-x-4">
+                  <div className="w-16 h-16 bg-gray-200 rounded-lg"></div>
+                  <div>
+                    <div className="font-semibold">{item.date}</div>
+                    <div className="text-sm text-gray-600">Analysis completed</div>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <div className={`px-4 py-2 rounded-full text-sm font-semibold ${
+                    item.status === 'success' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
+                  }`}>
+                    {item.result}
+                  </div>
+                  <div className="text-gray-600">{item.confidence}</div>
+                  <button className="text-blue-600 hover:text-blue-700">
+                    <ChevronRight />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Upload Page
+  const UploadPage = () => (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-5xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">New Diagnosis</h1>
+          <p className="text-gray-600 mt-2">Upload a clear image of the skin lesion</p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Upload Area */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-xl shadow-md p-8">
+              <div className="border-4 border-dashed border-gray-300 rounded-xl p-12 text-center hover:border-blue-400 transition cursor-pointer">
+                <Upload className="mx-auto text-gray-400 mb-4" size={64} />
+                <h3 className="text-xl font-semibold mb-2">Drag your image here</h3>
+                <p className="text-gray-600 mb-4">or click to browse</p>
+                <button 
+                  onClick={() => setCurrentPage('results')}
+                  className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+                >
+                  Choose File
+                </button>
+                <p className="text-sm text-gray-500 mt-4">Supported: JPG, PNG (Max 10MB)</p>
+              </div>
+
+              <div className="mt-6 flex space-x-4">
+                <button className="flex-1 bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition flex items-center justify-center space-x-2">
+                  <Camera size={20} />
+                  <span>Take Photo</span>
+                </button>
+                <button className="flex-1 bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition flex items-center justify-center space-x-2">
+                  <Upload size={20} />
+                  <span>From Gallery</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Guidelines Panel */}
+          <div className="bg-white rounded-xl shadow-md p-6">
+            <h3 className="text-lg font-semibold mb-4 flex items-center">
+              <HelpCircle className="mr-2 text-blue-600" size={20} />
+              Image Guidelines
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="text-green-600 mt-1 flex-shrink-0" size={20} />
+                <div>
+                  <div className="font-semibold text-sm">Good Lighting</div>
+                  <div className="text-sm text-gray-600">Use natural daylight</div>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="text-green-600 mt-1 flex-shrink-0" size={20} />
+                <div>
+                  <div className="font-semibold text-sm">Clear Focus</div>
+                  <div className="text-sm text-gray-600">Capture close-up details</div>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="text-green-600 mt-1 flex-shrink-0" size={20} />
+                <div>
+                  <div className="font-semibold text-sm">No Obstructions</div>
+                  <div className="text-sm text-gray-600">Remove hair or jewelry</div>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="text-green-600 mt-1 flex-shrink-0" size={20} />
+                <div>
+                  <div className="font-semibold text-sm">Centered Lesion</div>
+                  <div className="text-sm text-gray-600">Place lesion in center</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+              <div className="text-sm text-blue-800">
+                <strong>Tip:</strong> Take multiple angles for better accuracy
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Results Page
+  const ResultsPage = () => (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Diagnosis Results</h1>
+          <p className="text-gray-600 mt-2">Analysis completed on October 27, 2025</p>
+        </div>
+
+        {/* Result Badge */}
+        <div className="mb-8">
+          <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <CheckCircle size={48} />
+              <div>
+                <div className="text-3xl font-bold">BENIGN</div>
+                <div className="text-green-100 mt-1">Low risk detected</div>
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="text-4xl font-bold">95%</div>
+              <div className="text-green-100">Confidence</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column - Images */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Original Image */}
+            <div className="bg-white rounded-xl shadow-md p-6">
+              <h3 className="text-xl font-semibold mb-4">Original Image</h3>
+              <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center">
+                <span className="text-gray-400">Skin Lesion Image</span>
+              </div>
+              <div className="mt-4 text-sm text-gray-600">
+                <div>Uploaded: Oct 27, 2025 at 10:30 AM</div>
+                <div>File: lesion_image.jpg (2.4 MB)</div>
+              </div>
+            </div>
+
+            {/* Grad-CAM Heatmap */}
+            <div className="bg-white rounded-xl shadow-md p-6">
+              <h3 className="text-xl font-semibold mb-4">Grad-CAM Analysis</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <div className="text-sm font-semibold mb-2">Original</div>
+                  <div className="aspect-square bg-gray-200 rounded-lg"></div>
+                </div>
+                <div>
+                  <div className="text-sm font-semibold mb-2">Heatmap Overlay</div>
+                  <div className="aspect-square bg-gradient-to-br from-yellow-300 via-orange-400 to-red-500 rounded-lg"></div>
+                </div>
+              </div>
+              <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+                <div className="text-sm text-blue-800">
+                  <strong>Interpretation:</strong> Red areas indicate regions that most influenced the AI's decision. The model focused on the lesion's border and color variation.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - Details & Actions */}
+          <div className="space-y-6">
+            {/* Analysis Details */}
+            <div className="bg-white rounded-xl shadow-md p-6">
+              <h3 className="text-lg font-semibold mb-4">Analysis Details</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Classification:</span>
+                  <span className="font-semibold text-green-600">Benign</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Confidence:</span>
+                  <span className="font-semibold">95%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Model:</span>
+                  <span className="font-semibold text-sm">EfficientNetB7</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Date:</span>
+                  <span className="font-semibold text-sm">Oct 27, 2025</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Medical Disclaimer */}
+            <div className="bg-orange-50 border-2 border-orange-200 rounded-xl p-6">
+              <div className="flex items-start space-x-3">
+                <AlertCircle className="text-orange-600 flex-shrink-0 mt-1" size={24} />
+                <div>
+                  <h4 className="font-semibold text-orange-900 mb-2">Important Notice</h4>
+                  <p className="text-sm text-orange-800">
+                    This is a screening tool, not a definitive diagnosis. Always consult a dermatologist for professional evaluation.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Recommendations */}
+            <div className="bg-white rounded-xl shadow-md p-6">
+              <h3 className="text-lg font-semibold mb-4">Recommendations</h3>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start space-x-2">
+                  <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span>Monitor the lesion regularly</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span>Perform monthly self-checks</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span>Schedule annual screening</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span>Use sun protection (SPF 30+)</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="space-y-3">
+              <button className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition flex items-center justify-center space-x-2">
+                <Download size={20} />
+                <span>Download Report</span>
+              </button>
+              <button className="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition flex items-center justify-center space-x-2">
+                <Share2 size={20} />
+                <span>Share with Doctor</span>
+              </button>
+              <button 
+                onClick={() => setCurrentPage('clinics')}
+                className="w-full bg-white border-2 border-blue-600 text-blue-600 py-3 rounded-lg hover:bg-blue-50 transition flex items-center justify-center space-x-2"
+              >
+                <MapPin size={20} />
+                <span>Find Clinics</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Clinics Page
+  const ClinicsPage = () => (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Find Nearby Clinics</h1>
+          <p className="text-gray-600 mt-2">Dermatology specialists in your area</p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Map */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-xl shadow-md overflow-hidden">
+              <div className="h-96 bg-gradient-to-br from-blue-100 to-teal-100 flex items-center justify-center">
+                <div className="text-center">
+                  <MapPin className="mx-auto text-blue-600 mb-4" size={64} />
+                  <div className="text-xl font-semibold text-gray-700">Interactive Map</div>
+                  <div className="text-gray-500 mt-2">Showing clinics near Nablus</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Filters & Search */}
+          <div className="space-y-6">
+            <div className="bg-white rounded-xl shadow-md p-6">
+              <h3 className="text-lg font-semibold mb-4">Search & Filter</h3>
+              
+              <div className="mb-4">
+                <div className="relative">
+                  <Search className="absolute left-3 top-3 text-gray-400" size={20} />
+                  <input 
+                    type="text" 
+                    placeholder="Search clinics..." 
+                    className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-semibold mb-2">Distance</label>
+                  <select className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                    <option>Within 5 km</option>
+                    <option>Within 10 km</option>
+                    <option>Within 25 km</option>
+                    <option>Within 50 km</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-2">Specialty</label>
+                  <select className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                    <option>All Specialties</option>
+                    <option>Dermatology</option>
+                    <option>Oncology</option>
+                    <option>Skin Surgery</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-2">Availability</label>
+                  <select className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                    <option>Any time</option>
+                    <option>Today</option>
+                    <option>This week</option>
+                    <option>This month</option>
+                  </select>
+                </div>
+              </div>
+
+              <button className="w-full mt-4 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                Apply Filters
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Clinic List */}
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold mb-6">Available Clinics (12 results)</h2>
+          <div className="space-y-4">
+            {[
+              { name: 'Nablus Dermatology Center', distance: '2.3 km', rating: 4.8, reviews: 156 },
+              { name: 'Advanced Skin Care Clinic', distance: '3.7 km', rating: 4.9, reviews: 203 },
+              { name: 'Palestine Medical Complex', distance: '5.1 km', rating: 4.7, reviews: 89 }
+            ].map((clinic, i) => (
+              <div key={i} className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold mb-2">{clinic.name}</h3>
+                    <div className="flex items-center space-x-4 text-sm text-gray-600 mb-3">
+                      <div className="flex items-center">
+                        <MapPin size={16} className="mr-1" />
+                        <span>{clinic.distance}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <span className="text-yellow-500 mr-1">★</span>
+                        <span>{clinic.rating} ({clinic.reviews} reviews)</span>
+                      </div>
+                    </div>
+                    <div className="text-sm text-gray-600 mb-2">
+                      📍 Specializes in skin cancer screening & treatment
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      📞 +970-59-123-4567 | ⏰ Open now: 8:00 AM - 8:00 PM
+                    </div>
+                  </div>
+                  <div className="flex flex-col space-y-2 ml-4">
+                    <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition whitespace-nowrap">
+                      Book Now
+                    </button>
+                    <button className="bg-white border-2 border-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-50 transition whitespace-nowrap">
+                      Get Directions
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Reports Page
+  const ReportsPage = () => (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">My Reports</h1>
+            <p className="text-gray-600 mt-2">Your diagnosis history and saved reports</p>
+          </div>
+          <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition flex items-center space-x-2">
+            <Upload size={20} />
+            <span>New Diagnosis</span>
+          </button>
+        </div>
+
+        {/* Filter Bar */}
+        <div className="bg-white rounded-xl shadow-md p-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+              <label className="block text-sm font-semibold mb-2">Date Range</label>
+              <select className="w-full border rounded-lg px-3 py-2">
+                <option>All time</option>
+                <option>Last 7 days</option>
+                <option>Last 30 days</option>
+                <option>Last 3 months</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-semibold mb-2">Classification</label>
+              <select className="w-full border rounded-lg px-3 py-2">
+                <option>All results</option>
+                <option>Benign only</option>
+                <option>Malignant only</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-semibold mb-2">Sort By</label>
+              <select className="w-full border rounded-lg px-3 py-2">
+                <option>Newest first</option>
+                <option>Oldest first</option>
+                <option>Confidence (High to Low)</option>
+              </select>
+            </div>
+            <div className="flex items-end">
+              <button className="w-full bg-gray-100 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-200 transition">
+                Apply Filters
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* View Toggle */}
+        <div className="mb-6 flex justify-between items-center">
+          <div className="text-gray-600">Showing 8 of 24 reports</div>
+          <div className="flex space-x-2">
+            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg">Grid View</button>
+            <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">List View</button>
+          </div>
+        </div>
+
+        {/* Reports Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            { date: 'Oct 25, 2025', result: 'Benign', confidence: '95%', color: 'green' },
+            { date: 'Oct 15, 2025', result: 'Benign', confidence: '88%', color: 'green' },
+            { date: 'Sep 30, 2025', result: 'Malignant', confidence: '92%', color: 'orange' },
+            { date: 'Sep 20, 2025', result: 'Benign', confidence: '91%', color: 'green' },
+            { date: 'Aug 12, 2025', result: 'Benign', confidence: '87%', color: 'green' },
+            { date: 'Aug 05, 2025', result: 'Benign', confidence: '93%', color: 'green' },
+            { date: 'Jul 28, 2025', result: 'Benign', confidence: '89%', color: 'green' },
+            { date: 'Jul 10, 2025', result: 'Benign', confidence: '96%', color: 'green' }
+          ].map((report, i) => (
+            <div key={i} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition cursor-pointer group">
+              <div className="aspect-square bg-gray-200 relative">
+                <div className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold ${
+                  report.color === 'green' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
+                }`}>
+                  {report.result}
+                </div>
+              </div>
+              <div className="p-4">
+                <div className="text-sm text-gray-600 mb-2">{report.date}</div>
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-sm font-semibold">Confidence:</span>
+                  <span className="text-sm font-bold text-blue-600">{report.confidence}</span>
+                </div>
+                <div className="flex space-x-2">
+                  <button 
+                    onClick={() => setCurrentPage('results')}
+                    className="flex-1 bg-blue-600 text-white py-2 rounded-lg text-sm hover:bg-blue-700 transition"
+                  >
+                    View
+                  </button>
+                  <button className="px-3 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
+                    <Download size={16} />
+                  </button>
+                  <button className="px-3 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
+                    <Share2 size={16} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Pagination */}
+        <div className="mt-8 flex justify-center">
+          <div className="flex space-x-2">
+            <button className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">Previous</button>
+            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg">1</button>
+            <button className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">2</button>
+            <button className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">3</button>
+            <button className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Render current page
+  const renderPage = () => {
+    switch(currentPage) {
+      case 'landing': return <LandingPage />;
+      case 'dashboard': return <DashboardPage />;
+      case 'upload': return <UploadPage />;
+      case 'results': return <ResultsPage />;
+      case 'clinics': return <ClinicsPage />;
+      case 'reports': return <ReportsPage />;
+      default: return <LandingPage />;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-white">
+      <Navigation />
+      {renderPage()}
+      
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white mt-16">
+        <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-xl">D</span>
+                </div>
+                <span className="text-2xl font-bold">DermAI</span>
+              </div>
+              <p className="text-gray-400 text-sm">
+                AI-powered skin cancer detection for early diagnosis and better outcomes.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-sm text-gray-400">
+                <li><a href="#" className="hover:text-white">Home</a></li>
+                <li><a href="#" className="hover:text-white">About Us</a></li>
+                <li><a href="#" className="hover:text-white">How It Works</a></li>
+                <li><a href="#" className="hover:text-white">Research</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Legal</h4>
+              <ul className="space-y-2 text-sm text-gray-400">
+                <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-white">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-white">Medical Disclaimer</a></li>
+                <li><a href="#" className="hover:text-white">GDPR Compliance</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Contact</h4>
+              <ul className="space-y-2 text-sm text-gray-400">
+                <li>📧 support@dermai.com</li>
+                <li>📞 +970-59-123-4567</li>
+                <li>📍 Nablus, Palestine</li>
+                <li className="pt-4">
+                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm">
+                    Get Support
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
+            <p>&copy; 2025 DermAI. Palestine Technical University - Kadoorie. All rights reserved.</p>
+            <p className="mt-2">⚠️ This tool is for educational purposes and should not replace professional medical advice.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default DermAIDesign;
